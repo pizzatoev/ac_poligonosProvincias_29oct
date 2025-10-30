@@ -1,5 +1,7 @@
 package com.example.ac_poligonosprovincias_29oct;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,12 +33,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap myMap;
     private Spinner spinnerProvincias;
     private Button btnGenerar;
+    private Button btnLimpiar;
 
     private HashMap<String, LatLng> provinciasCoords = new HashMap<>();
     private ArrayAdapter<String> adapter;
     private List<String> provinciasDisponibles = new ArrayList<>();
     private List<LatLng> provinciasSeleccionadas = new ArrayList<>();
     private Polygon poligonoActual; // referencia al polígono actual
+    private HashMap<String, Integer> provinciaIconos = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         spinnerProvincias = findViewById(R.id.spinnerProvincias);
         btnGenerar = findViewById(R.id.btnGenerar);
+        btnLimpiar = findViewById(R.id.btnLimpiar);
 
         // Cargar el fragmento del mapa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         inicializarProvincias();
         provinciasDisponibles.addAll(provinciasCoords.keySet());
 
+
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item,
                 provinciasDisponibles);
@@ -72,10 +78,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 LatLng coord = provinciasCoords.get(provincia);
 
                 if (coord != null) {
-                    myMap.addMarker(new MarkerOptions()
+                    Integer iconResId = provinciaIconos.get(provincia);
+                    MarkerOptions markerOptions = new MarkerOptions()
                             .position(coord)
-                            .title(provincia)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                            .title(provincia);
+                    if (iconResId != null) {
+                        Bitmap original = BitmapFactory.decodeResource(getResources(), iconResId);
+                        Bitmap scaled = Bitmap.createScaledBitmap(original, 100, 100, false);
+                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(scaled));
+                    } else {
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                    }
+                    markerOptions.anchor(0.5f, 0.5f);
+                    markerOptions.infoWindowAnchor(0.5f, -0.2f);
+                    myMap.addMarker(markerOptions);
+
 
                     provinciasSeleccionadas.add(coord);
                     provinciasDisponibles.remove(provincia);
@@ -89,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         btnGenerar.setOnClickListener(v -> generarPoligonoCircular());
+        btnLimpiar.setOnClickListener(v -> limpiarMapa());
     }
 
     private void generarPoligonoCircular() {
@@ -124,9 +142,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .strokeColor(0xFFFF0000)
                     .fillColor(0x44FF0000)
                     .strokeWidth(5);
-
             poligonoActual = myMap.addPolygon(polygonOptions);
         }
+    }
+    private void limpiarMapa() {
+        myMap.clear();
+        provinciasSeleccionadas.clear();
+        provinciasDisponibles.clear();
+        provinciasDisponibles.addAll(provinciasCoords.keySet());
+        adapter.notifyDataSetChanged();
+        poligonoActual = null;
     }
 
     private void inicializarProvincias() {
@@ -145,5 +170,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         provinciasCoords.put("Obispo Santistevan", new LatLng(-16.65662662910246, -63.45500671943528));
         provinciasCoords.put("Sara", new LatLng(-16.800764935940023, -63.74234759493154));
         provinciasCoords.put("Vallegrande", new LatLng(-18.6161258094168, -64.00644214245281));
+
+        provinciaIconos.put("Andrés Ibáñez", R.drawable.andresibanez);
+        provinciaIconos.put("Ángel Sandóval", R.drawable.angelsandoval);
+        provinciaIconos.put("Chiquitos", R.drawable.chiquitos);
+        provinciaIconos.put("Cordillera", R.drawable.cordillera);
+        provinciaIconos.put("Florida", R.drawable.florida);
+        provinciaIconos.put("Germán Busch", R.drawable.germanbusch);
+        provinciaIconos.put("Guarayos", R.drawable.guarayos);
+        provinciaIconos.put("Ichilo", R.drawable.ichilo);
+        provinciaIconos.put("Ignacio Warnes", R.drawable.warnes);
+        provinciaIconos.put("José Miguel de Velasco", R.drawable.velasco);
+        provinciaIconos.put("Manuel María Caballero", R.drawable.manuelmariaca);
+        provinciaIconos.put("Ñuflo de Chávez", R.drawable.nuflochavez);
+        provinciaIconos.put("Obispo Santistevan", R.drawable.ovisposanti);
+        provinciaIconos.put("Sara", R.drawable.sara);
+        provinciaIconos.put("Vallegrande", R.drawable.vallegrande);
     }
 }

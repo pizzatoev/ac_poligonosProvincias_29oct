@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">ac_poligonosProvincias_29oct</string>
     <string name="api_key">AIzaSyDiHCfCjzf-C8A8ZaYPknAQEoJ_WYTxhhk</string>
+    <string-array name="provincias_array">
+        <item>Provincia</item>
+        <item>Andrés Ibáñez</item>
+        <item>Ángel Sandóval</item>
+        <item>Chiquitos</item>
+        <item>Cordillera</item>
+        <item>Florida</item>
+        <item>Germán Busch</item>
+        <item>Guarayos</item>
+        <item>Ichilo</item>
+        <item>Ignacio Warnes</item>
+        <item>José Miguel de Velasco</item>
+        <item>Manuel María Caballero</item>
+        <item>Ñuflo de Chávez</item>
+        <item>Obispo Santistevan</item>
+        <item>Sara</item>
+        <item>Vallegrande</item>
+    </string-array>
+
 </resources>

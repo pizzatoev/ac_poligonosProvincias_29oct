@@ -5,39 +5,92 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/fondo2">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="16dp">
 
+        <!-- Título principal -->
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Santa Cruz"
+            android:textColor="#55B52D"
+            android:fontFamily="sans-serif-black"
+            android:textSize="38sp" />
+
+        <!-- Subtítulo -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Seleccione una provincia:"
-            android:textSize="16sp"
-            android:padding="4dp" />
+            android:textSize="18sp"
+            android:textColor="#C7C7C7"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="10dp" />
 
+        <!-- Spinner -->
         <Spinner
             android:id="@+id/spinnerProvincias"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp"
+            android:background="@drawable/bg_spinner"
+            android:padding="8dp" />
 
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btnGenerar"
+        <!-- Contenedor redondeado del mapa -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Generar" />
-    </LinearLayout>
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGenerar"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_green"
+                android:fontFamily="sans-serif-medium"
+                android:text="Generar"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLimpiar"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_red" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMapContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            android:layout_marginBottom="10dp">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botones -->
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

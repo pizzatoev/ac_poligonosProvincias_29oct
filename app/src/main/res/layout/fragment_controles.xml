@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Santa Cruz"
+        android:textSize="40sp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="#55B52D"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione una provincia:"
+        android:textColor="#C7C7C7"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerProvincias"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_spinner"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="12dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGenerar"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="60dp"
+            android:text="Generar"
+            android:background="@drawable/bg_button_green"
+            android:textColor="@color/white"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLimpiar"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_button_red"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</LinearLayout>
